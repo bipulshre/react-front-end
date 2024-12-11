@@ -5,7 +5,7 @@ const About = () => (
     <Layout>
         <h2 style={{ textAlign: 'center' }}>About Us</h2>
         <p style={{ textAlign: 'center' }}>
-            This is a sample React app with best practices for component design and routing!
+            This is the about page
         </p>
     </Layout>
 );
