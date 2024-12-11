@@ -8,9 +8,9 @@ import TeamModal from "../components/TeamModal";
 
 const Team = () => {
     const [teamData, setTeamData] = useState([
-        { id: 1, name: "Team Alpha" },
-        { id: 2, name: "Team Beta" },
-        { id: 3, name: "Team Gamma" },
+        { id: 1, name: "Team Kathmandu" },
+        { id: 2, name: "Team Chitwan" },
+        { id: 3, name: "Team Biratnagar" },
     ]);
 
     const [isModalOpen, setModalOpen] = useState(false);
