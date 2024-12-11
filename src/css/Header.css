@@ -1,0 +1,33 @@
+.header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Space between logo and links */
+    align-items: center;           /* Vertically center items */
+    margin: 0 auto;                /* Center content horizontally */
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 24px;
+    color: white;
+}
+
+.header-nav {
+    display: flex;
+    gap: 15px; /* Space between links */
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
