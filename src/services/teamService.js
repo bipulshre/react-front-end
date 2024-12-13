@@ -12,6 +12,10 @@ const teamService = {
             const {players, ...rest} = item
             return rest;
         })
+    },
+
+    deleteTeam : async (id) =>{
+        return await axios.delete(`${API_BASE_URL}/${id}`)
     }
 }
 

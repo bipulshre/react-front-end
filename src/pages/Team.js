@@ -15,6 +15,7 @@ const Team = () => {
         teamData,
         loading,
         error,
+        deleteTeam,
         fetchTeams
     } = useTeam()
 
@@ -25,10 +26,11 @@ const Team = () => {
     }, [fetchTeams]);
 
     const handleDelete = (id) => {
-        // setTeamData(teamData.filter((row) => row.id !== id));
+        deleteTeam(id)
     };
 
     const handleEdit = (id) => {
+        debugger
         const newName = prompt("Enter new name for the team:");
         if (newName) {
             // setTeamData(teamData.map((row) => (row.id === id ? { ...row, name: newName } : row)));
