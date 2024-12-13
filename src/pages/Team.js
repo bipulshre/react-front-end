@@ -5,53 +5,40 @@ import "ag-grid-community/styles/ag-theme-alpine.css";
 import Layout from "../components/Layout";
 import "../css/Team.css";
 import TeamModal from "../components/TeamModal";
-import axios from "axios";
+import useTeam from "../hooks/useTeam";
 
-const API_BASE_URL = "http://localhost:8080/api/teams";
 
 const Team = () => {
-    const [teamData, setTeamData] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null)
+    // const [teamData, setTeamData] = useState([]);
+
+    const {
+        teamData,
+        loading,
+        error,
+        fetchTeams
+    } = useTeam()
 
     const [isModalOpen, setModalOpen] = useState(false);
 
-    const fetchItem = async () => {
-        try{
-            setLoading(true);
-            const response = await axios.get(API_BASE_URL)
-            const cleanedData = response.data.map(item =>{
-                const {players, ...rest} = item
-                return rest;
-            })
-            console.log(cleanedData)
-            setTeamData(cleanedData)
-        }catch (e) {
-            console.log("error occured")
-        }finally {
-            setLoading(false)
-        }
-    }
-
     useEffect(() => {
-        fetchItem()
-    }, []);
+        fetchTeams()
+    }, [fetchTeams]);
 
     const handleDelete = (id) => {
-        setTeamData(teamData.filter((row) => row.id !== id));
+        // setTeamData(teamData.filter((row) => row.id !== id));
     };
 
     const handleEdit = (id) => {
         const newName = prompt("Enter new name for the team:");
         if (newName) {
-            setTeamData(teamData.map((row) => (row.id === id ? { ...row, name: newName } : row)));
+            // setTeamData(teamData.map((row) => (row.id === id ? { ...row, name: newName } : row)));
         }
     };
 
     const handleCreate = (teamName) => {
-        const newId = teamData.length ? Math.max(...teamData.map((team) => team.id)) + 1 : 1;
-        setTeamData([...teamData, { id: newId, name: teamName }]);
-        setModalOpen(false); // Close modal after creation
+        // const newId = teamData.length ? Math.max(...teamData.map((team) => team.id)) + 1 : 1;
+        // setTeamData([...teamData, { id: newId, name: teamName }]);
+        // setModalOpen(false); // Close modal after creation
     };
 
     const columnDefs = [
