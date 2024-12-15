@@ -33,12 +33,40 @@ const useTeam = (callback, deps)=>{
         }
     }, deps)
 
+    const createTeam = useCallback(async (name) =>{
+        setLoading(true)
+        setError(null)
+        try{
+            const teams = await teamService.createTeam(name)
+            fetchTeams()
+        }catch (e){
+            setError("Failed to create Team");
+        }finally {
+            setLoading(false)
+        }
+    });
+
+    const editTeam = useCallback(async (id,name)=>{
+        setLoading(true)
+        setError(null)
+        try{
+            const teams = await teamService.editTeam(id,name)
+            fetchTeams()
+        }catch (e){
+            setError("Failed to create Team");
+        }finally {
+            setLoading(false)
+        }
+    })
+
     return {
         teamData,
         loading,
         error,
         fetchTeams,
-        deleteTeam
+        createTeam,
+        deleteTeam,
+        editTeam
     };
 }
 

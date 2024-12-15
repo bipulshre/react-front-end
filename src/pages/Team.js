@@ -16,7 +16,9 @@ const Team = () => {
         loading,
         error,
         deleteTeam,
-        fetchTeams
+        createTeam,
+        fetchTeams,
+        editTeam
     } = useTeam()
 
     const [isModalOpen, setModalOpen] = useState(false);
@@ -30,18 +32,17 @@ const Team = () => {
     };
 
     const handleEdit = (id) => {
-        debugger
         const newName = prompt("Enter new name for the team:");
         if (newName) {
-            // setTeamData(teamData.map((row) => (row.id === id ? { ...row, name: newName } : row)));
+            editTeam(id,newName)
         }
     };
 
     const handleCreate = (teamName) => {
-        // const newId = teamData.length ? Math.max(...teamData.map((team) => team.id)) + 1 : 1;
-        // setTeamData([...teamData, { id: newId, name: teamName }]);
-        // setModalOpen(false); // Close modal after creation
+        createTeam(teamName).then(r => setModalOpen(false) )
+
     };
+
 
     const columnDefs = [
         { headerName: "ID", field: "id", width: 100 },
@@ -50,10 +51,10 @@ const Team = () => {
             headerName: "Actions",
             cellRenderer: (params) => (
                 <div className="actions">
-                    <button className="action-button edit" onClick={() => handleEdit(params.data.id)}>
+                    <button className="action-button edit" onClick={() => handleEdit(params?.data?.id, params?.data?.name)}>
                         Edit
                     </button>
-                    <button className="action-button delete" onClick={() => handleDelete(params.data.id)}>
+                    <button className="action-button delete" onClick={() => handleDelete(params?.data?.id)}>
                         Delete
                     </button>
                 </div>
