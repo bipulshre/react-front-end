@@ -1,20 +1,23 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Layout from "../components/Layout";
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-alpine.css";
 import '../css/player.css'
 import PlayerModal from "../components/PlayerModal";
+import usePlayer from "../hooks/usePlayer";
 
 const Player = () => {
 
-    const [playerData, setPlayerData] = useState([
-        {id: 1, name: "Ram", position: "Goal Keeper", team: "Kathmandu Kings"},
-        {id: 2, name: "Shyam", position: "Defender", team: "Kathmandu Kings"},
-        {id: 3, name: "Hari", position: "Mid fielder", team: "Kathmandu Kings"},
-        {id: 4, name: "Krishna", position: "Striker", team: "Kathmandu Kings"},
+    const {
+        fetchPlayer,
+        playerData
+    } = usePlayer()
 
-    ])
+    useEffect(() => {
+        fetchPlayer()
+    }, [fetchPlayer]);
+
 
     const [isModalOpen, setModalOpen] = useState(false);
 
@@ -35,20 +38,6 @@ const Player = () => {
         { headerName: "Name", field: "name", width: 100 },
         { headerName: "Position", field: "position", width: 200 },
         { headerName: "Team", field: "team", width: 200 },
-        {
-            headerName: "Actions",
-            cellRenderer: (params) => (
-                <div className="actions">
-                    <button className="action-button edit" onClick={() => handleEdit(params.data.id)}>
-                        Edit
-                    </button>
-                    <button className="action-button delete" onClick={() => handleDelete(params.data.id)}>
-                        Delete
-                    </button>
-                </div>
-            ),
-            flex: 200,
-        },
     ];
 
     return (
@@ -60,6 +49,7 @@ const Player = () => {
                     </button>
                     <div className="ag-theme-alpine" style={{ height: 400, width: "100%" }}>
                         <AgGridReact
+                            key={playerData.length}
                             rowData={playerData}
                             columnDefs={columnDefs}
                             domLayout="autoHeight"
